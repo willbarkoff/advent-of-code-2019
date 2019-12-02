@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	ints, err := util.ReadIntArrayFromFile("d01/d01.txt")
+	ints, err := util.ReadIntArrayFromFile("d01/d01.txt", "\n")
 	util.Check(err)
 
 	weight := 0

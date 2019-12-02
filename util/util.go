@@ -12,13 +12,13 @@ func Check(err error) {
 	}
 }
 
-func ReadIntArrayFromFile(file string) ([]int, error) {
+func ReadIntArrayFromFile(file string, sep string) ([]int, error) {
 	dat, err := ioutil.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}
 
-	input := strings.Split(string(dat), "\n")
+	input := strings.Split(string(dat), sep)
 
 	ints := []int{}
 
@@ -37,13 +37,13 @@ func ReadIntArrayFromFile(file string) ([]int, error) {
 	return ints, nil
 }
 
-func ReadFloatArrayFromFile(file string) ([]float64, error) {
+func ReadFloatArrayFromFile(file string, sep string) ([]float64, error) {
 	dat, err := ioutil.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}
 
-	input := strings.Split(string(dat), "\n")
+	input := strings.Split(string(dat), sep)
 
 	floats := []float64{}
 

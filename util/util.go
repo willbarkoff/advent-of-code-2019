@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"io/ioutil"
 	"strconv"
 	"strings"
@@ -60,4 +61,56 @@ func ReadFloatArrayFromFile(file string, sep string) ([]float64, error) {
 	}
 
 	return floats, nil
+}
+
+func ReadTwoDStringArray(file string) ([][]string, error) {
+	dat, err := ioutil.ReadFile(file)
+	if err != nil {
+		return nil, err
+	}
+
+	lines := strings.Split(string(dat), "\n")
+
+	result := [][]string{}
+
+	for _, line := range lines {
+		cells := strings.Split(line, ",")
+		result = append(result, cells)
+	}
+
+	return result, nil
+}
+
+func NicelyPrint2DArray(array [][]int) {
+	for _, row := range array {
+		fmt.Print("[")
+		for i, cell := range row {
+			fmt.Print(cell)
+			if i != (len(row) - 1) {
+				fmt.Print(", ")
+			}
+		}
+		fmt.Println("]")
+	}
+}
+
+func PutIn2DSlice(pos1 int, pos2 int, value int, slice [][]int) [][]int {
+	if pos1 >= len(slice)-1 {
+		// We need to grow the slice
+		newSlice := make([][]int, pos1+1)
+		for i := range slice {
+			newSlice[i] = make([]int, len(slice[i]))
+			copy(newSlice[i], newSlice[i])
+		}
+		slice = newSlice
+	}
+	if pos2 >= len(slice[pos1])-1 {
+		// We need to grow the slice
+		newSlice := make([]int, pos2+1)
+		copy(newSlice, slice[pos1])
+		slice[pos1] = newSlice
+	}
+
+	slice[pos1][pos2] = value
+	return slice
 }
